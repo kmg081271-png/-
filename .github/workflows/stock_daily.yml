@@ -1,0 +1,29 @@
+name: Daily US Stock Prediction
+
+on:
+  schedule:
+    # 화~토 새벽 5:30 KST (월~금 미 증시 마감 직후 자동 실행)
+    - cron: '30 20 * * 1-5'
+  workflow_dispatch: # 깃허브에서 테스트용 수동 실행 버튼 활성화
+
+jobs:
+  run-prediction:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install yfinance pandas numpy scikit-learn requests
+
+      - name: Run Script
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python stock_bot.py
