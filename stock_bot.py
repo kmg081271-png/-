@@ -6,7 +6,7 @@ import yfinance as yf
 from sklearn.ensemble import RandomForestClassifier
 
 # 분석할 종목 리스트 (필요에 따라 변경 가능)
-TICKERS = [""SOXX"]
+TICKERS = ["SOXX"]
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
